@@ -1,0 +1,2 @@
+# 控制台运行时依赖（计划报告 5.5）。不装 ccxt；HTTP 用 NiceGUI 带入的 httpx，事件流用其带入的 aiohttp。
+nicegui==3.18.0

@@ -1,0 +1,3 @@
+-r kernel.in
+-r dev.in
+-c kernel.lock

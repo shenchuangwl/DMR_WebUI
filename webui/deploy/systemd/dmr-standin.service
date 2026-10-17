@@ -1,0 +1,21 @@
+# DMR WebUI 替身交易所（开发与验收用）的用户级单元模板。只绑回环 127.0.0.1:18220。本轮不安装。
+# 安装：把 @WEBUI_ROOT@ 换成 webui 目录的绝对路径后放进 ~/.config/systemd/user/（步骤见 deploy/README.md）。
+[Unit]
+Description=DMR WebUI 替身交易所（仅回环 127.0.0.1:18220，非真实交易）
+Documentation=file:@WEBUI_ROOT@/deploy/README.md
+StartLimitIntervalSec=300
+StartLimitBurst=10
+
+[Service]
+Type=simple
+WorkingDirectory=@WEBUI_ROOT@
+Environment=PYTHONUNBUFFERED=1
+Environment=DMR_VAR_DIR=@WEBUI_ROOT@/var
+ExecStart=@WEBUI_ROOT@/.venv-kernel/bin/python -m dmr_standin --host 127.0.0.1 --port 18220 --state-dir @WEBUI_ROOT@/var/standin --log-dir @WEBUI_ROOT@/var/log --feed auto
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=20
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=default.target

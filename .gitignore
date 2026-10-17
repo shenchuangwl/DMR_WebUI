@@ -1,0 +1,159 @@
+# ============================================================
+# DMR量化交易系统 - Git 忽略规则
+# 首要目标：杜绝 API 密钥、账户数据与运行时产物进入版本库
+# 验证方式：git check-ignore -v config/config.py
+# ============================================================
+
+# ============================================================
+# 不纳入公开仓库的目录（保留在本地，不删除）
+# 依据：这些目录存放内部计划/方案/报告、专属测试脚本与运行日志，
+#       不属于公开发布所需的运行代码。
+# 注意：tests/offline/ 的 BIT 套件依赖 bit/B_TEST/，该目录不随仓库发布，
+#       详见 README「测试与验证」一节。
+# ============================================================
+/A_LOG/
+/A_MD/
+/A_PY/
+/A_TEST/
+/bit/B_LOG/
+/bit/B_MD/
+/bit/B_PY/
+/bit/B_TEST/
+
+# ---------- 凭证与私有配置（最高优先级，严禁提交）----------
+# 【策略变更】改为"默认忽略配置目录下所有 .py，再显式放行确认无凭证的模块"。
+# 原先是逐个列出已知文件名的白名单，任何改名/复制/新增（config_backup.py、
+# config2.py、bit/config/first_config.py…）都会绕过忽略规则被提交。
+config/*.py
+bit/config/*.py
+
+# 显式放行：以下模块经审查不含凭证
+!config/__init__.py
+!config/config_templates.py
+!config/enhanced_config.py
+!config/risk_config.py
+!config/short_term_config.py
+!config/long_term_config.py
+!config/first_short_term_config.py
+!config/first_long_term_config.py
+!bit/config/__init__.py
+!bit/config/bit_short_term_config.py
+!bit/config/bit_long_term_config.py
+!bit/config/feature_switches.py
+!bit/config/switch_model.py
+# 示例模板始终放行
+!config/*.example.py
+!bit/config/*.example.py
+
+# 通用凭证形态
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*credential*
+*secret*
+*credentials*.json
+*secrets*.json
+api_keys.json
+
+# WebUI 中这两个是公开源码/测试模块名，不是凭证文件；覆盖上面的通配规则。
+!webui/dmr_console/secret.py
+!webui/tests/console/test_console_secret.py
+
+# 配置副本：config_templates.py 会把 config.py 整份复制到下列位置，可能含凭证
+config/templates/
+config/*.bak
+config/config.py.bak
+*.bak
+backups/
+backup/
+backup_*/
+config_backup/
+
+# ---------- Python ----------
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# ---------- 运行时数据（行情、持仓、状态）----------
+data/**/*.csv
+data/**/*.json
+data/runtime_state/
+bit/data/**/*.json
+bit/data/**/*.csv
+*_position_*.json
+*_state_*.json
+*_dmr_state_*.json
+trailing_stop_*.json
+analysis_reports/*.csv
+analysis_reports/*.txt
+
+# ---------- 日志 ----------
+*.log
+trading_log.txt
+*_strategy.log
+*_trading.log
+logs/
+A_LOG/*.json
+A_LOG/volatility/
+bit/B_LOG/*.json
+
+# ---------- 测试与运行产物 ----------
+test_results_*.json
+requirements_current_*.txt
+requirements_backup_*.txt
+requirements_new.txt
+venv_backup_*/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ---------- 历史遗留 / 不应入库 ----------
+gitignore
+gitignore.zip
+A_TEST/get-pip.py
+
+# ---------- 编辑器与系统 ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ---------- WebUI 子工程（运行时/内部验收资料不公开） ----------
+/webui/.git/
+/webui/.venv-*/
+/webui/var/
+/webui/backup/
+/webui/.nicegui/
+/webui/docs/acceptance/
+/webui/docs/plans/
+/webui/docs/实施记录.md
+/webui/docs/交付说明.md
+/webui/docs/进度.md
+/webui/docs/验收结果.md
+/webui/tests/acceptance_live/
+/webui/tests/fixtures/onlycoin_live_sample.json
+*.out
+*.out.*
+*.db
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+.nicegui/
+*.pid
+
+# Graphify 等本地导航产物不属于项目运行时源码。
+/graphify-out/

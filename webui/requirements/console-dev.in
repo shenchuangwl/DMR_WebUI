@@ -1,0 +1,5 @@
+-r console.in
+-r dev.in
+# 验收截图：只用本机已有的 Chrome（executable_path），不下载浏览器
+playwright==1.64.0
+-c console.lock

@@ -1,0 +1,69 @@
+DMR_WebUI
+Includes the DMR_binance_Version_V16_A1 strategy code and the webui subproject.
+Copyright 2026 shenchuangwl
+
+This product includes software developed by shenchuangwl.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+--------------------------------------------------------------------------
+RISK DISCLAIMER / 风险声明
+--------------------------------------------------------------------------
+
+This software is a cryptocurrency futures trading system. It is capable of
+placing real orders on live exchange accounts and can therefore cause
+financial loss, including total loss of principal.
+
+It is provided for research and educational purposes only and does NOT
+constitute investment advice. No representation is made that any account
+will or is likely to achieve profits or losses similar to those discussed.
+
+Users are solely responsible for:
+  - any funds placed at risk;
+  - reviewing the code before use;
+  - obtaining and safeguarding their own exchange API credentials;
+  - complying with the laws of their jurisdiction and with the terms of
+    service of any exchange they connect to.
+
+本软件为数字货币合约量化交易系统，可在真实交易所账户上下达订单，
+可能造成资金损失，包括本金全部损失。
+
+本项目仅供研究与学习使用，不构成任何投资建议，亦不对任何收益作出承诺。
+使用者需自行承担全部资金风险、自行审查代码、自行申请并保管交易所 API
+凭证，并遵守所在司法辖区的法律与交易所服务条款。
+
+This disclaimer is informational. It does not add any restriction on the
+rights granted by the Apache License, Version 2.0.
+本声明为告知性质，不对 Apache License 2.0 所授予的权利附加任何限制。
+
+--------------------------------------------------------------------------
+THIRD-PARTY DEPENDENCIES / 第三方依赖
+--------------------------------------------------------------------------
+
+This repository distributes source code only; it does not bundle or
+redistribute any third-party binaries. Runtime dependencies are declared in
+requirements.txt and installed separately by the user from PyPI.
+
+A per-dependency license inventory is provided in THIRD_PARTY_NOTICES.md.
+Note in particular that `backtrader` is licensed under GPLv3+; it is an
+optional backtesting dependency and is not bundled here. Anyone who
+redistributes a combined work (for example a container image or a packaged
+binary) that includes GPL-licensed components must evaluate the resulting
+obligations independently.
+
+本仓库仅分发源代码，不打包或再分发任何第三方二进制文件。运行依赖在
+requirements.txt 中声明，由使用者自行从 PyPI 安装。
+
+逐项依赖许可证清单见 THIRD_PARTY_NOTICES.md。其中 backtrader 采用
+GPLv3+，属可选回测依赖且未随本仓库打包分发。若你再分发包含 GPL 组件的
+组合作品（如容器镜像或打包的可执行文件），须自行评估由此产生的义务。

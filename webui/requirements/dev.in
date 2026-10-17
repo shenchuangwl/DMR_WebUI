@@ -1,0 +1,4 @@
+# 测试与工具（两个环境共用的部分）
+pytest==9.1.1
+# FastAPI TestClient 需要（控制台环境里 NiceGUI 已带入）
+httpx==0.28.1

@@ -1,0 +1,14 @@
+[project]
+name = "dmr-webui"
+version = "0.1.0"
+description = "DMR_WebUI 的交易内核、Web 控制台与仅用于开发验收的本地替身交易所"
+requires-python = ">=3.12,<3.13"
+# 依赖不写在这里：见 requirements/*.in 与带哈希的 requirements/*.lock
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers -p no:cacheprovider"
+markers = [
+    "e2e: 回环端到端测试（真实进程、只用回环、回放行情），只能经 ./run_tests.sh e2e 运行",
+    "slow: 运行较慢的测试",
+]

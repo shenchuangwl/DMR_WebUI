@@ -1,0 +1,12 @@
+# DMR WebUI 内核心跳看护的定时器：开机一分钟后开始，之后每 30 秒一次（心跳停止超过 60 秒推送，90 秒内应收到）。本轮不安装。
+[Unit]
+Description=DMR WebUI 内核心跳看护定时器（每 30 秒）
+
+[Timer]
+OnBootSec=60s
+OnUnitActiveSec=30s
+AccuracySec=1s
+Unit=dmr-heartbeat.service
+
+[Install]
+WantedBy=timers.target

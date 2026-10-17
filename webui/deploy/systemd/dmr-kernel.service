@@ -1,0 +1,35 @@
+# DMR WebUI 交易内核的用户级单元模板。控制接口只绑回环 127.0.0.1:18200。本轮不安装。
+# 安装：把 @WEBUI_ROOT@ 换成 webui 目录的绝对路径后放进 ~/.config/systemd/user/（步骤见 deploy/README.md）。
+#
+# 内核的业务装配（T0.22）完成之前只能以空壳运行：要试这个单元，先在 [Service] 里加一行 Environment=DMR_KERNEL_SHELL=1。
+# 用 systemd 守护时不需要 deploy/supervise.sh（两者二选一，不要同时用）。
+[Unit]
+Description=DMR WebUI 交易内核（控制接口仅回环 127.0.0.1:18200）
+Documentation=file:@WEBUI_ROOT@/deploy/README.md
+Wants=dmr-standin.service
+After=dmr-standin.service
+StartLimitIntervalSec=300
+StartLimitBurst=10
+
+[Service]
+Type=simple
+WorkingDirectory=@WEBUI_ROOT@
+Environment=PYTHONUNBUFFERED=1
+Environment=DMR_ENV=standin
+Environment=DMR_VAR_DIR=@WEBUI_ROOT@/var
+Environment=DMR_KERNEL_HOST=127.0.0.1
+Environment=DMR_KERNEL_PORT=18200
+Environment=DMR_STANDIN_URL=http://127.0.0.1:18220
+# 停用标记：命令行应急入口（M2）写下 var/run/kernel.nosupervise 就不再拉起内核。标记存在时本单元被跳过——
+# 这不算失败，也不会重试（与 deploy/supervise.sh 的行为一致）；谁写的标记谁负责删除。
+ExecCondition=/usr/bin/test ! -e @WEBUI_ROOT@/var/run/kernel.nosupervise
+ExecStart=@WEBUI_ROOT@/.venv-kernel/bin/python -m dmr_kernel
+Restart=on-failure
+RestartSec=2
+# 关停要等在途意图落定并做检查点（最多约 30 秒），给足时间再强杀
+TimeoutStopSec=40
+KillSignal=SIGTERM
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=default.target

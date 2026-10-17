@@ -1,0 +1,18 @@
+# DMR WebUI 内核心跳看护（一次性检查）的用户级单元模板，由 dmr-heartbeat.timer 每 30 秒触发。本轮不安装。
+# 安装：把 @WEBUI_ROOT@ 换成 webui 目录的绝对路径后放进 ~/.config/systemd/user/（步骤见 deploy/README.md）。
+#
+# 内核环境运行，只读告警地址：Apprise 地址里带令牌，只放在仓库之外的文件 ~/.config/dmr-webui/alerts.env
+# （权限 0600，内容形如 DMR_ALERT_URLS=tgram://...；文件不存在也能运行，只是不推送）。
+# 心跳停止时脚本退出 1（单元显示失败，推送由脚本自己限速）；这里故意没有 Restart=：定时器本来就会再跑。
+[Unit]
+Description=DMR WebUI 内核心跳看护（心跳停止超过 60 秒即告警）
+Documentation=file:@WEBUI_ROOT@/deploy/README.md
+
+[Service]
+Type=oneshot
+WorkingDirectory=@WEBUI_ROOT@
+Environment=PYTHONUNBUFFERED=1
+Environment=DMR_VAR_DIR=@WEBUI_ROOT@/var
+EnvironmentFile=-%h/.config/dmr-webui/alerts.env
+ExecStart=@WEBUI_ROOT@/.venv-kernel/bin/python @WEBUI_ROOT@/deploy/heartbeat_watch.py --alert-after-s 60
+NoNewPrivileges=yes

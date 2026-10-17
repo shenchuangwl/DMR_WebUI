@@ -1,0 +1,23 @@
+# 虚拟环境与运行期数据（计划报告 4.2）
+.venv-*/
+var/
+backup/
+.nicegui/
+.git/
+__pycache__/
+*.pyc
+.pytest_cache/
+# 账本与运行产物
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+*.pid
+*.log
+*.out
+*.out.*
+.env
+.env.*
+!.env.example
+docs/acceptance/
+docs/plans/

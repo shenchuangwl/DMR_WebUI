@@ -1,0 +1,17 @@
+# 内核运行时依赖（计划报告 5.5）。ccxt、pandas、numpy 与 DMR 现钉版本一致，保证对拍可比。
+# 替身交易所进程（dmr_standin）也用这个环境运行。
+ccxt==4.5.78
+pandas==3.0.5
+numpy==2.5.3
+fastapi==0.143.0
+pydantic==2.14.1
+uvicorn==0.54.0
+# 内核事件流与替身交易所数据流的 WebSocket 处理直接用 anyio 任务组（版本与 starlette 带入的锁定版本一致）
+anyio==4.15.1
+# uvicorn 的 WebSocket 服务端实现（内核事件流、替身交易所账户数据流）
+websockets==17.2
+sqlalchemy==2.1.4
+alembic==1.20.0
+apscheduler==3.11.3
+# T0.1 决定：钉 1.x 的最后一个版本（2.0 于 2026-09-26 才发布）；本轮不配置外部推送地址
+apprise==1.13.1
